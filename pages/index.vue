@@ -4,6 +4,12 @@
         <v-flex xs12 sm8 md6>
           <div class="text-xs-center">
             <h1>Hello Nuxt</h1>
+            <v-icon>fas fa-lock</v-icon>
+            <v-icon
+              color="twitter"
+            >
+              fab fa-twitter
+            </v-icon>
           </div>
         </v-flex>
       </v-layout>
