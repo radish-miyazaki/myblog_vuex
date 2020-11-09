@@ -1,9 +1,5 @@
 <template>
   <v-app>
-    <v-content>
-      <v-conteiner>
-        <Nuxt />
-      </v-conteiner>
-    </v-content>
+    <Nuxt />
   </v-app>
 </template>
