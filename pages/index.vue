@@ -27,9 +27,14 @@
                 max-height="225" 
               />
 
-              <v-card-title class="align-end fill-height font-weight-bold">
-                {{ post.fields.title }}
-              </v-card-title>
+                <v-card-title class="align-end fill-height font-weight-bold">
+                  {{ post.fields.title }}
+                </v-card-title>
+
+              <v-card-text>
+                {{ post.fields.publishDate }}
+                <span :is="draftChip(post)"></span>
+              </v-card-text>
 
               <v-list-item three-line style="min-height: unset;">
                 <v-list-item-subtitle>
@@ -61,10 +66,12 @@
 <script>
 import client from '../plugins/contentful'
 import { mapGetters } from 'vuex'
+import draftChip from '../components/posts/draftChip'
 
 export default {
   async asyncData({ env }) {
     let posts = []
+    // 全てのEntryを取得する
     await client.getEntries({
       content_type: env.CTF_BLOG_POST_TYPE_ID,    
       order: '-fields.publishDate'
@@ -72,6 +79,10 @@ export default {
     .then(res => (posts = res.items))
     .catch(console.error)
     return { posts }
+  },
+
+  components: {
+    draftChip
   },
 
   computed: {
@@ -83,7 +94,7 @@ export default {
         }
       }
     },
-    ...mapGetters(['setEyeCatch'])
+    ...mapGetters(['setEyeCatch', 'draftChip'])
   }
 }
 </script>
