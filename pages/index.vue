@@ -20,8 +20,8 @@
               class="mx-auto"
             >
               <v-img
-                :src="post.fields.image.fields.file.url"
-                :alt="post.fields.image.fields.title"
+                :src="setEyeCatch(post).url"
+                :alt="setEyeCatch(post).title"
                 :aspect-ratio:="16/9"
                 max-width="400"
                 max-height="225" 
@@ -42,6 +42,7 @@
                 <v-btn
                   text
                   color="primary"
+                  :to="linkTo(post)"
                 >
                   この記事を見る
                 </v-btn>
@@ -59,6 +60,7 @@
 
 <script>
 import client from '../plugins/contentful'
+import { mapGetters } from 'vuex'
 
 export default {
   async asyncData({ env }) {
@@ -70,6 +72,18 @@ export default {
     .then(res => (posts = res.items))
     .catch(console.error)
     return { posts }
+  },
+
+  computed: {
+    linkTo: () => (obj) => {
+      return {
+        name: 'posts-slug',
+        params: {
+          slug: obj.fields.slug
+        }
+      }
+    },
+    ...mapGetters(['setEyeCatch'])
   }
 }
 </script>
