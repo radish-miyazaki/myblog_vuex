@@ -1,27 +1,21 @@
 <template>
   <v-container fluid>
+
     <template v-if="currentPost">
-
-    <!-- パンくずリスト -->
-    <v-breadcrumbs :items="breadcrumbs">
-      <template #divider>
-        <v-icon>mdi-chevron-right</v-icon>
-      </template>
-    </v-breadcrumbs>
-
+      <breadcrumbs :add-items="addBreads" />    
       {{ currentPost.fields.title }}
-    <v-img
-      :src="setEyeCatch(currentPost).url"
-      :alt="setEyeCatch(currentPost).title"
-      :aspect-ratio="16/9"
-      width="700"
-      height="400"
-      class="mx-auto"
-    />
-    {{ currentPost.fields.publishDate }}
-    <span :is="draftChip(currentPost)"></span>
-    <br>
-    {{ currentPost.fields.body }}
+      <v-img
+        :src="setEyeCatch(currentPost).url"
+        :alt="setEyeCatch(currentPost).title"
+        :aspect-ratio="16/9"
+        width="700"
+        height="400"
+        class="mx-auto"
+      />
+      {{ currentPost.fields.publishDate }}
+      <span :is="draftChip(currentPost)"></span>
+      <br>
+      {{ currentPost.fields.body }}
     </template>
 
     <template v-else>
@@ -54,21 +48,27 @@ export default {
     const currentPost = payload || await store.state.posts.find(post => post.fields.slug === params.slug)
   
     if(currentPost) {
-      return { currentPost }
+      return {
+        currentPost,
+        category: currentPost.fields.category
+      }
     } else {
       return error({ statusCode: 400 })
     }
   },
 
   computed: {
-    breadcrumbs() {
-      const category = this.currentPost.fields.category
+
+    addBreads() {
       return [
-        { text: 'ホーム', to: '/' },
-        { text: category.fields.name, to: '#' }
+        {
+          icon: 'mdi-folder-outline',
+          text: this.category.fields.name,
+          to: this.linkTo('categories', this.category)
+        }
       ]
     },
-    ...mapGetters(['setEyeCatch', 'draftChip'])
+    ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo'])
   },
 
   components: {

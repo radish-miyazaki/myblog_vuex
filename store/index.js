@@ -2,7 +2,8 @@ import defaultPhoto from '../assets/images/defaultBlogPicture.jpg'
 import client from '../plugins/contentful'
 
 export const state = () => ({
-  posts: []
+  posts: [],
+  categories: []
 })
 
 export const getters = {
@@ -36,12 +37,29 @@ export const getters = {
         slug: obj.fields.slug
       }
     }
+  },
+
+  // 引数で受け取ったタグに関連する投稿を配列にして返す、関数を返す
+  relatedPosts: state => (category) => {
+    const posts = []
+    for (let i = 0; i < state.posts.length; i++) {
+      const catId = state.posts[i].fields.category.sys.id
+      
+      // 引数で渡ってきたcategoryのidと一致するidを持つ投稿のみを配列に入れていく
+      if(category.sys.id === catId) posts.push(state.posts[i])
+    }
+    return posts
   }
 }
 
 export const mutations = {
+
   setPosts(state, payload) {
     state.posts = payload
+  },
+
+  setCategories(state, payload) {
+    state.categories = payload
   }
 }
 
@@ -54,6 +72,16 @@ export const actions = {
       order: '-fields.publishDate'
     })
     .then(res => commit('setPosts', res.items))
+    .catch(console.error)
+  },
+
+  async getCategories({ commit }) {
+    // 選択されたカテゴリと一致するもののみを取得
+    await client.getEntries({
+      content_type: 'category',
+      order: 'fields.sort'
+    })
+    .then(res => commit('setCategories', res.items))
     .catch(console.error)
   }
 }

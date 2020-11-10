@@ -33,7 +33,7 @@
                     small
                     dark
                     :color="categoryColor(post.fields.category)"
-                    to="#"
+                    :to="linkTo('categories', post.fields.category)"
                     class="font-weight-bold"
                   >
                     {{ post.fields.category.fields.name }}
@@ -107,7 +107,7 @@ export default {
   },
 
   computed: {
-    
+
     categoryColor() {
       return (category) => {
         // カテゴリ名によって色分けする
