@@ -61,12 +61,12 @@
                 </v-list-item-subtitle>
               </v-list-item>
 
-              <v-card-action style="height: 64px">
+              <v-card-actions style="height: 64px">
                 <template v-if="post.fields.tags">
                   <v-chip
                     v-for="(tag, i) in post.fields.tags"
-                    :key="i"
-                    to="#"
+                    :key="i"  
+                    :to="linkTo('tags', tag)"
                     small
                     label
                     outlined
@@ -82,7 +82,7 @@
                     {{ tag.fields.name }}
                   </v-chip>
                 </template>
-              </v-card-action>
+              </v-card-actions>
 
               <v-card-actions>
                 <v-spacer />

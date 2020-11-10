@@ -15,6 +15,7 @@
 
 <script>
 export default {
+
   computed: {
     relatedPosts() {
       return this.$store.getters.relatedPosts(this.category)
