@@ -61,6 +61,29 @@
                 </v-list-item-subtitle>
               </v-list-item>
 
+              <v-card-action style="height: 64px">
+                <template v-if="post.fields.tags">
+                  <v-chip
+                    v-for="(tag, i) in post.fields.tags"
+                    :key="i"
+                    to="#"
+                    small
+                    label
+                    outlined
+                    class="ma-1"
+                  >
+                    <v-icon
+                      left
+                      size="18"
+                      color="blue-grey darken"
+                    >
+                      mdi-label
+                    </v-icon>
+                    {{ tag.fields.name }}
+                  </v-chip>
+                </template>
+              </v-card-action>
+
               <v-card-actions>
                 <v-spacer />
                 <v-btn
@@ -90,6 +113,7 @@ import { mapGetters } from 'vuex'
 import draftChip from '../components/posts/draftChip'
 
 export default {
+
   async asyncData({ env }) {
     let posts = []
     // 全てのEntryを取得する
@@ -107,7 +131,6 @@ export default {
   },
 
   computed: {
-
     categoryColor() {
       return (category) => {
         // カテゴリ名によって色分けする
