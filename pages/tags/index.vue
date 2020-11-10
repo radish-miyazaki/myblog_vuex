@@ -21,17 +21,30 @@
               />
             </v-card-title>
 
+            <!-- データテーブル -->
             <v-data-table
-              :headers="headers"
-              :items="tableItems"
+              :headers="isLoading ? [] : headers"
+              :items="isLoading ? [] : tableItems"
               :search="search"
               :sort-by="sortBy"
               :items-per-page="itemsPerPages"
               :page.sync="page"
+              :loading="isLoading"
+              loading-text="Loading now..."
               sort-desc
               hide-default-footer
               @page-count="pageCount = $event"
             >
+
+              <!-- プログレスバー -->
+              <template v-slot:progress>
+                <v-progress-linear
+                  color="gray"
+                  :height=10
+                  indetermine
+                />
+              </template>
+
               <template v-slot:[`item.fields.name`]="{ item }" >
                 <v-icon size="18">
                   mdi-tag-outline
@@ -64,6 +77,17 @@
 import { mapState, mapGetters } from 'vuex'
 
 export default {
+  created() {
+    this.isLoading = true
+  },
+
+  mounted() {
+    this.$nextTick().then((res) => {
+      setTimeout(() => {
+        res.isLoading = false
+      }, 500)
+    })
+  },
   data() {
     return (
       {
@@ -73,6 +97,7 @@ export default {
         page: 1,
         pageCount: 0,
         totalVisible: 7,
+        isLoading: false,
         headers: [
           { 
             text: 'タグ',

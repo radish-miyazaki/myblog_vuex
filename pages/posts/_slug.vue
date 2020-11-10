@@ -35,12 +35,21 @@
       </v-btn>
     </div>
 
+    <!---------------------- フォロー＆シェアボタン ---------------------->
+    <client-only>
+      <share-btns :page-title="currentPost.fields.title" />
+      <follow-btns />
+    </client-only>
+    <!---------------------- // フォロー＆シェアボタン ---------------------->
+
   </v-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import draftChip from '../../components/posts/draftChip'
+import followBtns from '../../components/ui/followBtns'
+import shareBtns from '../../components/ui/shareBtns'
 
 export default {
 
@@ -72,7 +81,7 @@ export default {
   },
 
   components: {
-    draftChip
+    draftChip, shareBtns, followBtns
   }
 }
 </script>
