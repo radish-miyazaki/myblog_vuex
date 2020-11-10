@@ -7,7 +7,9 @@
         md="10"
         xl="8"
       >
+        <!---------------------- 投稿が存在する場合 ---------------------->
         <v-row v-if="posts.length">
+          <!---------------------- 投稿数だけループ ---------------------->
           <v-col
             v-for="(post, i) in posts" :key="i"
             cols="12"
@@ -23,13 +25,30 @@
                 :src="setEyeCatch(post).url"
                 :alt="setEyeCatch(post).title"
                 :aspect-ratio:="16/9"
-                max-width="400"
-                max-height="225" 
-              />
+                max-height="200"
+              >
 
-                <v-card-title class="align-end fill-height font-weight-bold">
+                <v-card-text>
+                  <v-chip
+                    small
+                    dark
+                    :color="categoryColor(post.fields.category)"
+                    to="#"
+                    class="font-weight-bold"
+                  >
+                    {{ post.fields.category.fields.name }}
+                  </v-chip>
+                </v-card-text>
+
+              </v-img>
+
+              <v-card-title>
+                <nuxt-link
+                  :to="linkTo('posts', post)"
+                >
                   {{ post.fields.title }}
-                </v-card-title>
+                </nuxt-link>
+              </v-card-title>
 
               <v-card-text>
                 {{ post.fields.publishDate }}
@@ -59,27 +78,51 @@
           記事はありません
         </div>
       </v-col>
+      <!---------------------- // 投稿数だけループ ---------------------->
     </v-row>
+    <!---------------------- // 投稿が存在する場合 ---------------------->
   </v-container>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import client from '../plugins/contentful'
+import { mapGetters } from 'vuex'
 import draftChip from '../components/posts/draftChip'
 
 export default {
+  async asyncData({ env }) {
+    let posts = []
+    // 全てのEntryを取得する
+    await client.getEntries({
+      content_type: env.CTF_BLOG_POST_TYPE_ID,    
+      order: '-fields.publishDate'
+    })
+    .then(res => (posts = res.items))
+    .catch(console.error)
+    return { posts }
+  },
 
   components: {
     draftChip
   },
 
   computed: {
-    ...mapState(['posts']),
+    
+    categoryColor() {
+      return (category) => {
+        // カテゴリ名によって色分けする
+        switch(category.fields.name) {
+          case 'RubyOnRails': return '#C73A31'
+          case 'Nuxt.js': return '#236244'
+          case 'others': return 'primary'
+          default: return 'grey darken-3'
+        }
+      }
+    },
     ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo'])
   }
 }
 </script>
 
 <style>
-
 </style>
