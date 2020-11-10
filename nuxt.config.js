@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+const client = require('./plugins/contentful').default
 require('dotenv').config()
 
 export default {
@@ -67,5 +68,28 @@ export default {
     CTF_SPACE_ID: process.env.CTF_SPACE_ID,
     CTF_BLOG_POST_TYPE_ID: process.env.CTF_BLOG_POST_TYPE_ID,
     CTF_CDA_ACCESS_TOKEN: process.env.CTF_CDA_ACCESS_TOKEN
+  },
+
+  generate: {
+    // 動的なルーティングを配列として渡す
+    routes() {
+      return Promise.all([
+        client.getEntries({
+          content_type: process.env.CTF_BLOG_POST_TYPE_ID
+        })
+      ]).then(([posts]) => {
+        return [
+          ...posts.items.map(post => {
+              return { route: `posts/${post.fields.slug}`, payload: post }
+          })
+        ]
+      })
+    }
+  },
+
+  router: {
+    middleware: [
+      'getContentful'
+    ]
   }
 }
