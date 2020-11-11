@@ -1,17 +1,58 @@
 <template>
   <div>
-    <v-app-bar
+    <!-- <v-app-bar
+      hide-on-scroll
       dense
+      prominent
+      color="primary lighten-1"
     >
-      <nuxt-link 
-        to="/"
-        class="site-name"
-      >
-        {{ siteName }}
-      </nuxt-link>
+    <v-spacer />
+        <v-toolbar-title
+          color="white"
+          justify="center"
+          
+        >
+          <nuxt-link
+            to="/"
+            class="site-name"
+          >
+            {{ siteName }}
+          </nuxt-link>
+        </v-toolbar-title>
       <v-spacer />
       <search-form />
-    </v-app-bar>
+    </v-app-bar> -->
+
+      <header>
+        <v-app-bar
+          hide-on-scroll
+          dense
+          color="blue-grey darken-2"
+        >
+        <v-spacer />
+        <v-toolbar-title 
+          class="white--text font-weight-bold display-1"
+        > 
+          RADISH <span class="deep-orange--text">TECH</span>
+        </v-toolbar-title>
+        <v-spacer />
+        <search-form />
+
+        <template v-slot:extension>
+          <v-tabs
+            centered
+          >
+            <v-tab
+              v-for="(menuItem, index) in menuItems"
+              :key="index"
+              class="white--text"
+            >
+              {{ menuItem.name }}
+            </v-tab>
+          </v-tabs>
+        </template>
+      </v-app-bar>
+    </header>
   </div>
 </template>
 
@@ -21,7 +62,25 @@ import searchForm from '../ui/searchForm'
 export default {
   data() {
     return {
-      siteName: 'RADISH HOME'
+      menuItems: [
+        {
+          name: 'HOME',
+          url: '/'
+        },
+        {
+          name: 'ABOUT',
+          url: '/'
+        },
+        {
+          name: 'BLOG',
+          url: '/'
+        },
+        {
+          name: 'TWITTER',
+          url: '/'
+        },
+
+      ]
     }
   },
 
@@ -31,14 +90,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
-a.site-name {
-  text-decoration: none;
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 1.25rem;
-  line-height: 1.5;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+<style lang="scss" scoped>
+
+.v-toolbar__title {
+  overflow: visible !important;
+  margin-right: 50px !important;
+  font-family: 'Noto Sans JP', sans-serif;
 }
+
 </style>

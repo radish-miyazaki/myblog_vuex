@@ -3,8 +3,12 @@
     <v-form>
       <v-text-field
         hide-details
-        placeholder="キーワードを入力"
+        placeholder="Search..."
+        prepend-inner-icon="mdi-magnify"
         dense
+        dark
+        color="white"
+        class="white--text"
       />
     </v-form>
   </div>
@@ -14,7 +18,3 @@
 export default {
 }
 </script>
-
-<style>
-
-</style>
