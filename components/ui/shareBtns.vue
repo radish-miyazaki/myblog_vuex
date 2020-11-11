@@ -1,12 +1,22 @@
 <template>
   <div>
-    shareBtns.vue
-    <div>
-      {{ url }}
-      {{ pageTitle }}
-      {{ twitter }}
-      {{ hashtag }}
-    </div>
+    <p class="font-weight-bold">
+      この記事をフォロワーにシェアする
+      </p>
+    <v-btn
+      dark
+      color="twitter"
+      @click="windowOpen(twitterShareLink)"
+    >
+      <v-icon
+        aria-hidden="false"
+        aria-label="twitter"
+        class="mr-1"
+      >
+        fab fa-twitter
+      </v-icon>
+      <b>シェア</b>
+    </v-btn>
   </div>
 </template>
 
@@ -23,7 +33,34 @@ export default {
     return {
       url: (process.env.BASE_URL + this.$route.path),
       twitter: process.env.TWITTER_ACCOUNT,
-      hashtag: process.env.SITE_NAME
+      hashtag: process.env.SITE_NAME,
+      twitterLink: 'https://twitter.com/intent/tweet?url={0}&text={1}&hashtags={2}&related={3}&via={4}&lang=ja'
+    }
+  },
+
+  computed: {
+    // twitterのシェアURLを生成する
+    twitterLink() {
+      return this.formByArr(this.twitterLink, this.url, this.pageTitle, this.hashtag, this.twitter, this.twitter)
+    }
+  },
+  methods: {
+
+    // 引数を一度配列にし、URLにエンコードする
+    formByArr(msg) {
+      let args = []
+      for ( let i = 1; i < arguments.length; i++ ) {
+        args[i - 1] = arguments[i] 
+      }
+      args = args.map(x => encodeURIComponent(x))
+      return msg.replace(/\{(\d+)\}/g, (m, k) => {
+        return args[k]
+      })
+    }, 
+
+    // クリックされた時に新しいウィンドウを開く
+    windowOpen(link) {
+      return this.window.oepn(link, '_blank', 'top=100,left=100,width=600,height=500')
     }
   }
 }
