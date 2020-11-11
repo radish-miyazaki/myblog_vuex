@@ -35,7 +35,8 @@ export default {
       'Home',
       'About',
       'Blog',
-      'Twitter'
+      'Twitter',
+      'GitHub'
     ]
   })
 }

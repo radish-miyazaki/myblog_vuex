@@ -90,7 +90,7 @@
                 <v-spacer />
                 <v-btn
                   text
-                  color="primary"
+                  color="gray"
                   :to="linkTo('posts', post)"
                 >
                   この記事を見る
@@ -148,6 +148,3 @@ export default {
   }
 }
 </script>
-
-<style>
-</style>

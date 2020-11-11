@@ -1,34 +1,11 @@
 <template>
   <div>
-    <!-- <v-app-bar
-      hide-on-scroll
-      dense
-      prominent
-      color="primary lighten-1"
-    >
-    <v-spacer />
-        <v-toolbar-title
-          color="white"
-          justify="center"
-          
-        >
-          <nuxt-link
-            to="/"
-            class="site-name"
-          >
-            {{ siteName }}
-          </nuxt-link>
-        </v-toolbar-title>
-      <v-spacer />
-      <search-form />
-    </v-app-bar> -->
-
-      <header>
-        <v-app-bar
-          hide-on-scroll
-          dense
-          color="blue-grey darken-2"
-        >
+    <header>
+      <v-app-bar
+        hide-on-scroll
+        dense
+        color="blue-grey darken-2"
+      >
         <v-spacer />
         <v-toolbar-title 
           class="white--text font-weight-bold display-1"
@@ -79,6 +56,10 @@ export default {
           name: 'TWITTER',
           url: '/'
         },
+        {
+          name: 'GITHUB',
+          url: '/'
+        }
 
       ]
     }
