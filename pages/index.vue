@@ -17,6 +17,7 @@
             md="4"
             xl="3"
           >
+            <!-- 投稿カード -->
             <v-card
               max-width="400"
               class="mx-auto"
@@ -61,7 +62,8 @@
                 </v-list-item-subtitle>
               </v-list-item>
 
-              <v-card-actions>
+              <!-- タグ名 -->
+              <v-card-text>
                 <template v-if="post.fields.tags">
                   <v-chip
                     v-for="(tag, i) in post.fields.tags"
@@ -82,7 +84,7 @@
                     {{ tag.fields.name }}
                   </v-chip>
                 </template>
-              </v-card-actions>
+              </v-card-text>
 
               <v-card-actions>
                 <v-spacer />
