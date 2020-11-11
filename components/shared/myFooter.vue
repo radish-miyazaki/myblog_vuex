@@ -34,7 +34,8 @@ export default {
     links: [
       'Home',
       'About',
-      'Blog',
+      'Categories',
+      'Tags',
       'Twitter',
       'GitHub'
     ]

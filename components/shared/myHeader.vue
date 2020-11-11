@@ -9,8 +9,10 @@
         <v-spacer />
         <v-toolbar-title 
           class="white--text font-weight-bold display-1"
-        > 
-          RADISH <span class="deep-orange--text">TECH</span>
+        >
+          <nuxt-link to="/" class="site-title">
+            RADISH <span class="deep-orange--text">TECH</span>
+          </nuxt-link>
         </v-toolbar-title>
         <v-spacer />
         <search-form />
@@ -35,6 +37,7 @@
 
 <script>
 import searchForm from '../ui/searchForm'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -42,23 +45,27 @@ export default {
       menuItems: [
         {
           name: 'HOME',
-          url: '/'
+          to: '/'
         },
         {
           name: 'ABOUT',
-          url: '/'
+          to: '/'
         },
         {
-          name: 'BLOG',
-          url: '/'
+          name: 'CATEGORY',
+          to: '/'
+        },
+        {
+          name: 'TAGS',
+          to: '/'
         },
         {
           name: 'TWITTER',
-          url: '/'
+          to: '/'
         },
         {
           name: 'GITHUB',
-          url: '/'
+          to: '/'
         }
 
       ]
@@ -77,6 +84,10 @@ export default {
   overflow: visible !important;
   margin-right: 50px !important;
   font-family: 'Noto Sans JP', sans-serif;
+}
+.site-title {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 </style>
