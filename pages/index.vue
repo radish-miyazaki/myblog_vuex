@@ -1,17 +1,40 @@
 <template>
   <v-container fluid>
     <v-row justify="center">
+      <v-img
+        :src="mainImg"
+        max-height="300px"
+        dark
+        gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+      >
+        <v-row
+          class="fill-height ma-0"
+          align="center"
+          justify="center"
+        >
+          <div class="font-weight-bold title">
+            "てげてげ"なエンジニアのブログ
+          </div>
+        </v-row>
+      </v-img>
+    </v-row>
+    <v-row justify="center">
       <v-col
         cols="12"
         sm="11"
         md="10"
         xl="8"
       >
+        <div class="sub-title">
+          <h2>新着記事</h2>
+          <v-divider
+          ></v-divider>
+        </div>
         <!---------------------- 投稿が存在する場合 ---------------------->
         <v-row v-if="posts.length">
           <!---------------------- 投稿数だけループ ---------------------->
           <v-col
-            v-for="(post, i) in posts" :key="i"
+            v-for="(post, i) in visiblePosts" :key="i"
             cols="12"
             sm="6"
             md="4"
@@ -90,7 +113,7 @@
                 <v-spacer />
                 <v-btn
                   text
-                  color="gray"
+                  color="primary"
                   :to="linkTo('posts', post)"
                 >
                   この記事を見る
@@ -104,7 +127,20 @@
         </div>
       </v-col>
       <!---------------------- // 投稿数だけループ ---------------------->
+    
     </v-row>
+      
+      <!---------------------- ページネーション ---------------------->
+      <v-pagination
+        v-model="page"
+        :length="Math.ceil(posts.length/totalVisible)"
+        :total-visible="totalVisible"
+        circle
+        prev-icon="mdi-menu-left"
+        next-icon="mdi-menu-right"
+        @input="pageChange"
+      />
+    
     <!---------------------- // 投稿が存在する場合 ---------------------->
   </v-container>
 </template>
@@ -115,6 +151,19 @@ import { mapGetters } from 'vuex'
 import draftChip from '../components/posts/draftChip'
 
 export default {
+
+  data() {
+    return {
+      mainImg: require('../assets/images/main.jpg'),
+      posts: [],
+      invisiblePosts: [],
+      isLoading: false,
+      page: 1,
+      pageCount: 0,
+      totalVisible: 6
+    }
+  },
+
 
   async asyncData({ env }) {
     let posts = []
@@ -144,7 +193,35 @@ export default {
         }
       }
     },
+
+    visiblePosts: {
+      get() {
+        return this.posts.slice((this.page - 1) * this.totalVisible, this.page * this.totalVisible)
+      },
+      set() {
+        this.visiblePosts = this.posts.slice((this.page - 1) * this.totalVisible, this.page * this.totalVisible)
+      }
+    },
+    
     ...mapGetters(['setEyeCatch', 'draftChip', 'linkTo'])
+  },
+
+  methods: {
+    pageChange(pageNumber) {
+      this.visiblePosts = this.posts.slice(this.totalVisible * (pageNumber - 1), this.totalVisible * (pageNumber))
+    }
   }
 }
 </script>
+
+
+<style lang="scss" scoped>
+
+.v-card__title > a {
+  text-decoration: none;
+}
+
+.sub-title {
+  padding: 10px 0;
+}
+</style>

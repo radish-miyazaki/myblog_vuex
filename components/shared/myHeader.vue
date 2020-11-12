@@ -2,7 +2,6 @@
   <div>
     <header>
       <v-app-bar
-        hide-on-scroll
         dense
         color="blue-grey darken-2"
       >
@@ -27,31 +26,49 @@
             <v-tab
               v-for="(menuItem, index) in menuItems"
               :key="index"
-              class="white--text"
+              class="white--text no-decoration-text"
             >
-              {{ menuItem.name }}
+              <component
+                :is="isInternalLink(menuItem.to) ? 'nuxt-link' : 'a'"
+                :to="isInternalLink(menuItem.to) ? menuItem.to : ''"
+                :href="isInternalLink(menuItem.to) ? '' : menuItem.to"
+              >
+                {{ menuItem.name }}
+              </component>
             </v-tab>
           </v-tabs>
         </template>
       </v-app-bar>
+      <!-- スマホ用ハンバーガーメニューのアイテムリスト -->
       <v-navigation-drawer
         v-model="drawer"
         fixed
         temporary
+        color="blue-grey darken-2"
       >
         <v-list
           nav
           dense
+          dark
         >
           <v-list-item-group>
             <v-list-item
             v-for="(menuItem, i) in menuItems"
             :key="i"
+            class="no-decoration-text"
             >
-              <v-list-item-title>
-                {{ menuItem.name }}
-              </v-list-item-title>
+              <component
+                :is="isInternalLink(menuItem.to) ? 'nuxt-link' : 'a'"
+                :to="isInternalLink(menuItem.to) ? menuItem.to : ''"
+                :href="isInternalLink(menuItem.to) ? '' : menuItem.to"
+              >
+                <v-list-item-title>
+                  {{ menuItem.name }}
+                </v-list-item-title>
+              </component>
             </v-list-item>
+            <!-- 検索ボタン追加 -->
+
           </v-list-item-group>
         </v-list>
       </v-navigation-drawer>
@@ -70,27 +87,29 @@ export default {
       menuItems: [
         {
           name: 'HOME',
-          to: '/'
+          to: '/',
+          icon: ''
         },
         {
           name: 'ABOUT',
-          to: '/'
-        },
-        {
-          name: 'CATEGORY',
-          to: '/'
+          to: '/',
+          icon: ''
         },
         {
           name: 'TAGS',
-          to: '/'
+          to: '/tags',
+          icon: ''
         },
         {
           name: 'TWITTER',
-          to: '/'
+          to: 'https://twitter.com/ruby_engineer',
+          icon: ''
+
         },
         {
           name: 'GITHUB',
-          to: '/'
+          to: 'https://github.com/Yoshiki-Hidaka',
+          icon: ''
         }
 
       ]
@@ -99,11 +118,18 @@ export default {
 
   components: {
     searchForm
+  },
+  
+  methods: {
+    isInternalLink (path) {
+      return !/^https?:\/\//.test(path)
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
 /* 共通化用変数＆mixin */
 /* メディアクエリブレークポイント */
 $xs: 600;
@@ -136,7 +162,6 @@ $pc-min: $sm + px;
     @content;
   }
 }
-
 /* //////////////////////////////////////////////// */
 
 .v-toolbar__title {
@@ -171,5 +196,11 @@ $pc-min: $sm + px;
     display: block !important;
     padding-top: 10px;
   }
+}
+
+.no-decoration-text > a {
+  text-decoration: none !important;
+  color: white;
+  font-size: 1rem;
 }
 </style>

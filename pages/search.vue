@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+
     <v-form
       @submit.prevent="getPosts()">
       <v-row align="center">
@@ -150,8 +151,11 @@ export default {
       return !!this.query && !/^\s+$/.test(this.query)
     },
 
-    visiblePosts() {
-      return this.posts.slice((this.page - 1) * this.totalVisible, this.page * this.totalVisible)
+    visiblePosts: {
+      get() {
+        return this.posts.slice((this.page - 1) * this.totalVisible, this.page * this.totalVisible)
+      },
+      set() {}
     }
   }
 }

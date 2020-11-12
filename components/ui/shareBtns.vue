@@ -60,7 +60,7 @@ export default {
 
     // クリックされた時に新しいウィンドウを開く
     windowOpen(link) {
-      return this.window.oepn(link, '_blank', 'top=100,left=100,width=600,height=500')
+      return window.open(link, '_blank', 'top=100,left=100,width=600,height=500')
     }
   }
 }
