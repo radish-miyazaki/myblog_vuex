@@ -38,23 +38,22 @@ export default {
       url: (process.env.BASE_URL + this.$route.path),
       twitter: process.env.TWITTER_ACCOUNT,
       hashtag: process.env.SITE_NAME,
-      twitterLink: 'https://twitter.com/intent/tweet?url={0}&text={1}&hashtags={2}&related={3}&via={4}&lang=ja'
-    }
+      twitterLink: 'https://twitter.com/intent/tweet?url={0}&text={1}&hashtags={2}&related={3}&via={4}&lang=ja'    }
   },
 
   computed: {
     // twitterのシェアURLを生成する
-    twitterLink() {
-      return this.formByArr(this.twitterLink, this.url, this.pageTitle, this.hashtag, this.twitter, this.twitter)
+    twitterShareLink() {
+      return this.formatByArr(this.twitterLink, this.url, this.pageTitle, this.hashtag, this.twitter, this.twitter) 
     }
   },
   methods: {
 
     // 引数を一度配列にし、URLにエンコードする
-    formByArr(msg) {
+    formatByArr(msg) {
       let args = []
-      for ( let i = 1; i < arguments.length; i++ ) {
-        args[i - 1] = arguments[i] 
+      for (let i = 1; i < arguments.length; i++) {
+        args[i - 1] = arguments[i]
       }
       args = args.map(x => encodeURIComponent(x))
       return msg.replace(/\{(\d+)\}/g, (m, k) => {
