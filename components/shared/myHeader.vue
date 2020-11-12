@@ -8,7 +8,7 @@
         <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
         <v-toolbar-title 
-          class="white--text font-weight-bold display-1"
+          class="white--text font-weight-bold display-1 pl-5"
         >
           <nuxt-link to="/" class="site-title">
             RADISH <span class="deep-orange--text">TECH</span>
@@ -75,7 +75,22 @@
                   </v-list-item-title>
               </component>
             </v-list-item>
+
             <!-- 検索ボタン追加 -->
+            <v-list-item
+              class="no-decoration-text">
+              <nuxt-link
+                to="/search">
+              <v-list-item-icon>
+                <v-icon>
+                  mdi-magnify
+                </v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>
+                SEARCH
+              </v-list-item-title>
+              </nuxt-link>
+            </v-list-item>
 
           </v-list-item-group>
         </v-list>
