@@ -4,6 +4,7 @@
       outlined
       color="twitter"
       @click="windowOpen(twitterLink)"
+      class="mt-2 ml-2"
     >
       <v-icon
         aria-hidden="false"

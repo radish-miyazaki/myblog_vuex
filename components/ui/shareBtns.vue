@@ -1,12 +1,16 @@
 <template>
   <div>
     <p class="font-weight-bold">
+      <v-icon>
+        far fa-hand-point-down
+      </v-icon>
       この記事をフォロワーにシェアする
       </p>
     <v-btn
       dark
       color="twitter"
       @click="windowOpen(twitterShareLink)"
+      class="ma-2"
     >
       <v-icon
         aria-hidden="false"
