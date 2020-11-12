@@ -14,7 +14,9 @@
             RADISH <span class="deep-orange--text">TECH</span>
           </nuxt-link>
         </v-toolbar-title>
+
         <v-spacer />
+
         <v-toolbar-items>
           <search-form />
         </v-toolbar-items>
@@ -114,9 +116,9 @@ export default {
           icon: 'fas fa-home'
         },
         {
-          name: 'ABOUT',
-          to: '/',
-          icon: 'fas fa-address-card'
+          name: 'PROGRAMMING',
+          to: '/categories/programming',
+          icon: 'fas fa-cog'
         },
         {
           name: 'TAGS',

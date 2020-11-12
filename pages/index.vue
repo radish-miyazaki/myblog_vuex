@@ -122,12 +122,12 @@
             </v-card>
           </v-col>
         </v-row>
+
+        <!-- 投稿が存在しない場合の処理 -->
         <div v-else class="text-center">
           記事はありません
         </div>
-      </v-col>
-      <!---------------------- // 投稿数だけループ ---------------------->
-    
+      </v-col>    
     </v-row>
       
       <!---------------------- ページネーション ---------------------->
@@ -140,9 +140,8 @@
         next-icon="mdi-menu-right"
         @input="pageChange"
       />
-    
-    <!---------------------- // 投稿が存在する場合 ---------------------->
-  </v-container>
+      
+      </v-container>
 </template>
 
 <script>
@@ -185,9 +184,9 @@ export default {
       return (category) => {
         // カテゴリ名によって色分けする
         switch(category.fields.name) {
-          case 'RubyOnRails': return '#C73A31'
-          case 'Nuxt.js': return '#236244'
-          case 'others': return 'primary'
+          case 'Programming': return '#C73A31'
+          case 'Technical': return '#236244'
+          case 'Others': return 'primary'
           default: return 'grey darken-3'
         }
       }

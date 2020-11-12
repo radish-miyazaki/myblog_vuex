@@ -31,7 +31,7 @@
           xl="8"
         >
           <h2 class="font-weight-bold title pt-2">{{ currentPost.fields.title }}</h2>
-          <h3 class="subtitle-2 pl-10">
+          <h3 class="subtitle-2 pl-10 pt-2">
             <v-icon>far fa-calendar-alt</v-icon>
             {{ currentPost.fields.publishDate }}
           </h3>

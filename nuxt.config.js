@@ -62,7 +62,10 @@ export default {
 
   markdownit: {
     injected: true,   // 「$md」でどこからでも使えるようにする
-    breaks: true      // 改行を<br/>に変換する
+    breaks: true,     // 改行を<br/>に変換する
+    use: [
+      'markdown-it-br'  // Contentfulで<br>と記述した際に改行に変換する
+    ]
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
