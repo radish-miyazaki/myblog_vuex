@@ -56,8 +56,14 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    '@nuxtjs/dotenv'  
+    '@nuxtjs/dotenv',
+    '@nuxtjs/markdownit' 
   ],
+
+  markdownit: {
+    injected: true,   // 「$md」でどこからでも使えるようにする
+    breaks: true      // 改行を<br/>に変換する
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

@@ -37,7 +37,7 @@
           </h3>
           <v-divider class="ma-5"></v-divider>
 
-          {{ currentPost.fields.body }}
+          <div v-html="$md.render(currentPost.fields.body)"></div>
 
           <v-divider class="ma-5"></v-divider>
           <!---------------------- フォロー＆シェアボタン ---------------------->
