@@ -156,7 +156,6 @@ export default {
     return {
       mainImg: require('../assets/images/main.jpg'),
       posts: [],
-      invisiblePosts: [],
       isLoading: false,
       page: 1,
       pageCount: 0,
@@ -199,7 +198,6 @@ export default {
         return this.posts.slice((this.page - 1) * this.totalVisible, this.page * this.totalVisible)
       },
       set() {
-        this.visiblePosts = this.posts.slice((this.page - 1) * this.totalVisible, this.page * this.totalVisible)
       }
     },
     
