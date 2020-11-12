@@ -133,7 +133,7 @@ export default {
         },
         {
           name: 'GITHUB',
-          to: 'https://github.com/Yoshiki-Hidaka',
+          to: 'https://github.com/radish-miyazaki',
           icon: 'fab fa-github'
         }
 
