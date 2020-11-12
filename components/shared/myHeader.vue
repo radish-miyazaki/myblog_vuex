@@ -33,6 +33,9 @@
                 :to="isInternalLink(menuItem.to) ? menuItem.to : ''"
                 :href="isInternalLink(menuItem.to) ? '' : menuItem.to"
               >
+                <v-icon color="white">
+                  {{ menuItem.icon }}
+                </v-icon>
                 {{ menuItem.name }}
               </component>
             </v-tab>
@@ -62,9 +65,14 @@
                 :to="isInternalLink(menuItem.to) ? menuItem.to : ''"
                 :href="isInternalLink(menuItem.to) ? '' : menuItem.to"
               >
-                <v-list-item-title>
-                  {{ menuItem.name }}
-                </v-list-item-title>
+                <v-list-item-icon>
+                  <v-icon>
+                    {{ menuItem.icon }}
+                  </v-icon>
+                </v-list-item-icon>
+                  <v-list-item-title>
+                    {{ menuItem.name }}
+                  </v-list-item-title>
               </component>
             </v-list-item>
             <!-- 検索ボタン追加 -->
@@ -88,28 +96,28 @@ export default {
         {
           name: 'HOME',
           to: '/',
-          icon: ''
+          icon: 'fas fa-home'
         },
         {
           name: 'ABOUT',
           to: '/',
-          icon: ''
+          icon: 'fas fa-address-card'
         },
         {
           name: 'TAGS',
           to: '/tags',
-          icon: ''
+          icon: 'fas fa-tags'
         },
         {
           name: 'TWITTER',
           to: 'https://twitter.com/ruby_engineer',
-          icon: ''
+          icon: 'fab fa-twitter'
 
         },
         {
           name: 'GITHUB',
           to: 'https://github.com/Yoshiki-Hidaka',
-          icon: ''
+          icon: 'fab fa-github'
         }
 
       ]
